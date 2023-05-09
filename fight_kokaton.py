@@ -142,7 +142,6 @@ class Beam:
         screen.blit(self._img, self._rct)
 
 
-
 class Explosion:
     """
     爆発に関するクラス
