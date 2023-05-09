@@ -81,6 +81,8 @@ class Bomb:
     """
     爆弾に関するクラス
     """
+    _colors = [(255,0,0),(0,255,0),(0,0,255),(255,255,0),(255,0,255),(0,255,255)]
+    _dires = [-1,0,+1]
     def __init__(self, color: tuple[int, int, int], rad: int):
         """
         引数に基づき爆弾円Surfaceを生成する
@@ -106,6 +108,30 @@ class Bomb:
             self._vy *= -1
         self._rct.move_ip(self._vx, self._vy)
         screen.blit(self._img, self._rct)
+
+
+class Beam:
+    """
+    ビームに関するクラス
+    """
+    def __init__(self,bird: Bird):
+        """
+        ビーム画像を生成する
+        引数 bird：birdインスタンス
+        """
+        self._img = pg.transform.rotozoom(pg.image.load("ex03/fig/beam.png"),0,2.0) # 画像Sruface
+        self._rct = self._img.get_rect() # 画像Surfaceに対応したrect
+        self._rct.centerx = bird._rct.centerx + 100 #こうかとんの中心座標+ちょっと右
+        self._rct.centery = bird._rct.centery
+        self._vx,self._vy = 1,0
+    def update(self,screen: pg.Surface):
+        """
+        ビームを速度self._vyにもとづき移動させる
+        引数 screen：画像Surface
+        """
+        self._rct.move_ip(self._vx,self._vy)
+        screen.blit(self._img, self._rct)
+        
 
 
 def main():
